@@ -154,6 +154,19 @@ function endRound(roomId) {
     scores: room.scores
   });
 }
+app.get("/", (req, res) => {
+  res.send("Game backend is running 🚀");
+});
+
+app.get("/test-db", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT NOW()");
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 server.listen(process.env.PORT || 5000, () =>
   console.log("Server running...")
